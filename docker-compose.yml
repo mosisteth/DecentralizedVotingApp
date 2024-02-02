@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  ganache:
+    image: trufflesuite/ganache-cli
+    command: ["--deterministic"]
+    ports:
+      - "8545:8545"
+  voting-backend:
+    build: ./backend
+    depends_on:
+      - ganache
+  voting-frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - voting-backend
